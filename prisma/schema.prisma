@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Selfbot {
+  token String @id @unique // Unique token for identifying the bot
+
+  voiceOptions Json? // JSON data for voice-related configurations
+  afkOptions   Json? // JSON data for voice-related configurations
+
+  antiSystems   AntiSystem[] // One-to-many relationship with Setting
+  automations   Automation[] // One-to-many relationship with Setting
+  backups       Backup[] // One-to-many relationship with Setting
+  richPresences RichPresence[] // One-to-many relationship with RichPresence
+
+  richPresence String  @default("NONE") // Whether rich presence is enabled for the bot
+  premium      Boolean @default(false) // Whether the bot is premium or not
+  admin        Boolean @default(false) // Whether the bot has admin privileges
+
+  joinedAt  DateTime @default(now()) // Date the bot joined (auto-filled)
+  updatedAt DateTime @updatedAt // Automatically updated timestamp
+}
+
+model AntiSystem {
+  name  String  @id @unique // Unique name of the anti-system setting
+  value Boolean // Value of the anti-system setting (true or false)
+
+  selfbotToken String // Foreign key referencing the Selfbot token
+  selfbot      Selfbot @relation(fields: [selfbotToken], references: [token]) // Relates to Selfbot
+}
+
+model Automation {
+  id Int @id @unique @default(autoincrement()) // Unique ID for each system setting
+
+  type String // Type of setting (e.g., 'automation', 'anti-system')
+  name String // Name or identifier for the system setting (e.g., 'bot-automation', 'anti-spam')
+
+  value Json? // Stores JSON data for the setting's value (could store multiple values)
+
+  selfbotToken String // Foreign key referencing the Selfbot token
+  selfbot      Selfbot @relation(fields: [selfbotToken], references: [token]) // Relates to Selfbot
+}
+
+model Backup {
+  id            String   @id @default(cuid())
+  name          String
+  selfbotToken  String
+  data          Json // Stores the actual backup data
+  guildName     String
+  date          DateTime @default(now())
+  channelCount  Int
+  roleCount     Int
+  categoryCount Int
+  Selfbot       Selfbot  @relation(fields: [selfbotToken], references: [token])
+
+  @@unique([name, selfbotToken])
+  @@index([selfbotToken])
+}
+
+model RichPresence {
+  name String @id @unique // Unique name of the rich presence
+
+  type        String // Type of rich presence (e.g., "Playing")
+  title       String? // Optional title for the rich presence
+  description String? // Optional description for the rich presence
+  imageURL    String? // Optional image URL for the rich presence
+
+  selfbotToken String // Foreign key referencing the Selfbot token
+  selfbot      Selfbot @relation(fields: [selfbotToken], references: [token]) // Relates to Selfbot
+}
+

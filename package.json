@@ -1,0 +1,50 @@
+{
+  "name": "selfbot-typscript",
+  "version": "1.0.0",
+  "description": "A discord selfbot written in TypeScript",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsc && node ./dist/main.js",
+    "start": "node ./dist/main.js"
+  },
+  "keywords": [
+    "selfbot",
+    "discord",
+    "typescript"
+  ],
+  "authors": [
+    "111tokyo",
+    "sqlu"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "@prisma/client": "^6.5.0",
+    "@types/node": "^22.13.11",
+    "prisma": "^6.5.0",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "backupie": "^2.0.7",
+    "cors": "^2.8.5",
+    "discord.js": "^14.18.0",
+    "discord.js-selfbot-v13": "^3.6.1",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "puppeteer": "^24.4.0",
+    "snoway-api": "^1.5.1",
+    "youtube-dl-exec": "^3.0.19"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "es5-ext",
+      "esbuild",
+      "prisma",
+      "puppeteer",
+      "youtube-dl-exec"
+    ]
+  }
+}

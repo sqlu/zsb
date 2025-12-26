@@ -1,0 +1,20 @@
+# Ignore node modules directory
+node_modules
+
+# Ignore environment variables file
+.env
+
+# Ignore build output directory
+dist/
+
+# Ignore Prisma migration and database files
+prisma/migrations/
+prisma/*db
+prisma/*db-journal
+
+# Ignore lock files
+package-lock.json
+pnpm-lock.yaml
+
+# Ignore log files
+debug.log
