@@ -39,3 +39,8 @@ yarn build && yarn start
 ## License
 
 This project is licensed under the [ISC License](LICENSE).
+
+## Contacts
+
+- GitHub: [111tokyo](https://github.com/111tokyo), [Snayzou](https://github.com/sqlu)
+- Discord: `111tokyo`, `early.lover`
